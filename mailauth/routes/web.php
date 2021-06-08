@@ -1,6 +1,11 @@
 <?php
-
+use App\Http\Controllers\TestEnrollmentController;
+use App\Http\Controllers\EmailsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +23,19 @@ Route::get('/', function () {
 });
 Auth::routes();
 
+Route::get('/private', [HomeController::class, 'private']);
+
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+// Route for mail
+// Route::get('/email', function() {
+//     Mail::to('info@darynazar.com')->send(new WelcomeMail());
+//     return new WelcomeMail();
+// });
+
+// route mail attachment
+Route::get('/email', [EmailsController::class, 'email']);
+
+
+// route notifications
+Route::get('/send-testenrollment', [TestEnrollmentController::class, 'sendTestNotification']);
